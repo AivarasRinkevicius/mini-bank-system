@@ -1,0 +1,191 @@
+{
+	"info": {
+		"_postman_id": "7f7af38e-97c0-4640-a6f0-b90d5836df94",
+		"name": "Account, Customers - creation, search, update",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16409340"
+	},
+	"item": [
+		{
+			"name": "Create Account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"customers\": [\r\n    ],\r\n    \"username\": \"admin\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/accounts",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Customer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Vardas\",\r\n    \"lastName\": \"Pavarde\",\r\n    \"email\": \"pastas@gmail.com\",\r\n    \"customerType\": \"PUBLIC\",\r\n    \"phoneNumber\": \"+37000000011\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"Lithuania\",\r\n            \"city\": \"Vilnius\",\r\n            \"street\": \"Ukmerges\",\r\n            \"buildingNumber\": 1\r\n        }\r\n    ],\r\n    \"accountId\": \"1\",\r\n    \"username\": \"admin\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/customers",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Customer",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"newEmail@gmail.com\",\r\n    \"address\": [\r\n        {\r\n            \"country\": \"Lithuania\",\r\n            \"city\": \"Kaunas\",\r\n            \"street\": \"Ukmerges\",\r\n            \"buildingNumber\": 1\r\n        }\r\n    ],\r\n    \"accountId\": \"1\",\r\n    \"username\": \"admin\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/customers/3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"customers",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Accounts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/accounts/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"accounts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Customer",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/customers/search?searchTerm=vardas&pageNumber=0&rowNumber=5",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"customers",
+						"search"
+					],
+					"query": [
+						{
+							"key": "searchTerm",
+							"value": "vardas"
+						},
+						{
+							"key": "pageNumber",
+							"value": "0"
+						},
+						{
+							"key": "rowNumber",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": "1"
+		},
+		{
+			"key": "base_url",
+			"value": "https://postman-rest-api-learner.glitch.me/"
+		}
+	]
+}
