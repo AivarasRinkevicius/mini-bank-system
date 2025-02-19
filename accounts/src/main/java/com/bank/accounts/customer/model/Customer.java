@@ -11,6 +11,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.envers.Audited;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,7 +26,7 @@ import java.util.List;
 public class Customer extends BaseEntity {
     CustomerType customerType;
     @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
-    List<Address> address;
+    List<Address> address = new ArrayList<>();
     @NonNull
     private String name;
     @NonNull
@@ -35,8 +36,13 @@ public class Customer extends BaseEntity {
     @NonNull
     private String email;
 
-    public void updateAddress(List<Address> newAddress) {
-        this.address.clear();
-        this.address.addAll(newAddress);
+    public void setAddress(List<Address> addresses, String username) {
+        if(!this.address.isEmpty()){
+            this.address.clear();
+        }
+
+        addresses.forEach(address -> address.setCreatedBy(username));
+
+        this.address.addAll(addresses);
     }
 }

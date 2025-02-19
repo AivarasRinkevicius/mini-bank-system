@@ -23,17 +23,18 @@ import static java.lang.String.format;
 
 @Service
 public class CustomerService {
-    @Autowired
     CustomerRepository customerRepository;
-
-    @Autowired
     AddressRepository addressRepository;
-
-    @Autowired
     AccountService accountService;
-
-    @Autowired
     CustomerMapper customerMapper;
+
+    public CustomerService(CustomerRepository customerRepository, AddressRepository addressRepository,
+                           AccountService accountService, CustomerMapper customerMapper) {
+        this.customerRepository = customerRepository;
+        this.addressRepository = addressRepository;
+        this.accountService = accountService;
+        this.customerMapper = customerMapper;
+    }
 
     @Transactional
     public Customer create(CustomerDto customerDto) {
@@ -65,10 +66,7 @@ public class CustomerService {
         updateIfNotNull(updateCustomerDto.email(), existingCustomer::setEmail);
         updateIfNotNull(updateCustomerDto.customerType(), existingCustomer::setCustomerType);
 
-        if (updateCustomerDto.address() != null && !updateCustomerDto.address().isEmpty()) {
-            existingCustomer.updateAddress(updateCustomerDto.address());
-        }
-
+        existingCustomer.setAddress(updateCustomerDto.address(), updateCustomerDto.username());
         existingCustomer.setLastModifiedBy(updateCustomerDto.username());
 
         return customerRepository.save(existingCustomer);

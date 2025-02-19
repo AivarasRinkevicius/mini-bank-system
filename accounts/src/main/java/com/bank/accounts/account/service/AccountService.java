@@ -14,8 +14,11 @@ import static java.lang.String.format;
 
 @Service
 public class AccountService {
-    @Autowired
     AccountRepository accountRepository;
+
+    public AccountService(AccountRepository accountRepository) {
+        this.accountRepository = accountRepository;
+    }
 
     public Account create(AccountDto accountDto) {
         List<Customer> customers = accountDto.customers();
@@ -27,7 +30,7 @@ public class AccountService {
     }
 
     public void assignCustomer(Customer customer, Long accountId, String username) {
-        Account account = validAccount(customer, accountId);
+        Account account = validateAccountForCustomer(customer, accountId);
 
         account.lastModifiedBy = username;
         account.getCustomers().add(customer);
@@ -40,7 +43,7 @@ public class AccountService {
                 () -> new EntityNotFoundException(format("Account with id: %s not found", id)));
     }
 
-    private Account validAccount(Customer customer, Long accountId) {
+    private Account validateAccountForCustomer(Customer customer, Long accountId) {
         Account account = accountRepository.findById(accountId).orElseThrow(
                 () -> new EntityNotFoundException(format("Account with id: %s not found", accountId)));
 
